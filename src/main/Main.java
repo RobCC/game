@@ -21,7 +21,7 @@ public class Main {
 	}
 	
 	private static void printMenu() {
-		System.out.println("Welcome to the game!");
+		System.out.println("Welcome to the game :)!");
 	}
 	
 	private static void setPlayer() {
