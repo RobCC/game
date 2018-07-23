@@ -113,7 +113,7 @@ public class UserInput {
 		boolean newLine 					= true;
 		
     for (String word : messageWords) {
-      int wordLength = word.length() + 1; //Adds post space word separator
+      int wordLength = word.length() + 1; //Adds post space word separator.
 			
       if (newLine) {
       	System.out.print("│ ");
