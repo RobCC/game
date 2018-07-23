@@ -77,8 +77,8 @@ public class UserInput {
 				continue;
 			}
 			
-			response		= sResponse.charAt(0);
-			validInput	= validateInput(options, response);
+			response 		= sResponse.charAt(0);
+			validInput 	= validateInput(options, response);
 			
 			if (!validInput) {
 				printOptionNotAvailable();
@@ -112,31 +112,31 @@ public class UserInput {
 		int remainingSpace 				= AVAILABLE_SPACE;
 		boolean newLine 					= true;
 		
-    for (String word : messageWords) {
-      int wordLength = word.length() + 1; //Adds post space word separator
+		for (String word : messageWords) {
+			int wordLength = word.length() + 1; //Adds post space word separator
 			
-      if (newLine) {
-      	System.out.print("│ ");
-      	newLine = false;
-      }
+			if (newLine) {
+				System.out.print("│ ");
+				newLine = false;
+			}
 			
-      if (remainingSpace >= wordLength) {
-      	System.out.print(word + " ");
-      	remainingSpace -= wordLength;
-      } else {
-      	for (int i = 0; i < remainingSpace; i++) {
-      		System.out.print(" ");
-      	}
-      	System.out.println(" │");
-      	remainingSpace = AVAILABLE_SPACE;
-      	newLine = true;
-      }
-    }
+			if (remainingSpace >= wordLength) {
+				System.out.print(word + " ");
+				remainingSpace -= wordLength;
+			} else {
+				for (int i = 0; i < remainingSpace; i++) {
+					System.out.print(" ");
+				}
+				System.out.println(" │");
+				remainingSpace = AVAILABLE_SPACE;
+				newLine = true;
+			}
+		}
 		
-    for (int i = 0; i < remainingSpace; i++) {
-    	System.out.print(" ");
-    }
-    System.out.println(" │");
+		for (int i = 0; i < remainingSpace; i++) {
+			System.out.print(" ");
+		}
+		System.out.println(" │");
 	}
 	
 	private static boolean isResponseEmpty(String response) {
