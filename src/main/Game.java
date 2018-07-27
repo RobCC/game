@@ -1,7 +1,8 @@
 package main;
 
 import java.util.Scanner;
-import player.Player;
+
+import characters.Player;
 import tools.UserInput;
 
 public class Game {
@@ -20,7 +21,7 @@ public class Game {
   
   public void start() {
     UserInput.setScanner(input);
-    UserInput.setWidth(80);
+    UserInput.setWidth(110);
     printMenu();
 //    setPlayer();
     
@@ -57,6 +58,8 @@ public class Game {
     
     player.setName();
     player.setAge();
+    player.setGender();
+    player.setFaction();
     player.describe();
   }
   

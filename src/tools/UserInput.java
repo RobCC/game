@@ -58,6 +58,8 @@ public class UserInput {
     if(message != null) {
       printMessage(message);
     }
+    
+    printNewLine();
 
     for (Entry<String, String> e : options.entrySet()) {
       String key = e.getKey();
@@ -67,7 +69,6 @@ public class UserInput {
 
     printLimit(false);
     System.out.print("> ");
-    
     
     do {
       keyPressed = input.nextLine().toUpperCase();
@@ -109,18 +110,32 @@ public class UserInput {
   public static void printMessage(String message) {
     List<String> messageWords = new ArrayList<String>(Arrays.asList(message.split(" ")));
     final int AVAILABLE_SPACE = width - 2 - 2; //border chars, padding (1 before, 1 after)
-    boolean newLine           = true;
     int remainingSpace        = AVAILABLE_SPACE;
+    
+    System.out.print("│ ");
     
     for (String word : messageWords) {
       int wordLength = word.length() + 1; //Adds post space word separator.
+      boolean wordFits = remainingSpace >= wordLength;
       
-      if (newLine) {
+      if (word.contains("\n")) {
+        for (int i = 0; i < remainingSpace; i++) {
+          System.out.print(" ");
+        }
+        System.out.println(" │");
         System.out.print("│ ");
-        newLine = false;
+        remainingSpace = AVAILABLE_SPACE;
+        
+        if (word.length() == 1) {
+          continue;
+        }
+//        else {
+//          word.replace("\n", "");
+//          wordLength = word.length() + 1;
+//        }
       }
       
-      if (remainingSpace >= wordLength) {
+      if (wordFits) {
         System.out.print(word + " ");
         remainingSpace -= wordLength;
       } else {
@@ -129,7 +144,10 @@ public class UserInput {
         }
         System.out.println(" │");
         remainingSpace = AVAILABLE_SPACE;
-        newLine = true;
+        
+        System.out.print("│ ");
+        System.out.print(word  + " ");
+        remainingSpace -= (wordLength);
       }
     }
     
@@ -158,24 +176,40 @@ public class UserInput {
     }
   
   private static void printOptionNotAvailable() {
-    System.out.println(" Option not available. Please try again");
+    printUnvalidError(" Option not available. Please try again");
     System.out.print("> ");
-    }
+  }
+  
+  public static void printUnvalidError(String msg) {
+    System.out.println("(!) " + msg);
+  }
   	
   /**
   * Prints limits of border header & footer
   */
+  
+  private static void printNewLine() {
+    System.out.print("│");
+    
+    for(int i = 0; i < width - 2; i++) {
+      System.out.print(" ");
+    }
+    
+    System.out.println("│");
+  }
   	
   private static void printLimit(boolean isHeader) {
     String initChar = isHeader ? "┌" : "└";
     String endChar  = isHeader ? "┐" : "┘";
     
     System.out.print(initChar);
+    
     for(int i = 0; i < width - 2; i++) {
       System.out.print("─");
-      }
-    System.out.println(endChar);
     }
+    
+    System.out.println(endChar);
+  }
   
   private static void printLimit(String gameName) {
     String initChar = "┌";
@@ -197,15 +231,19 @@ public class UserInput {
     }
     
     System.out.print(initChar);
-    for (int i = 0; i < middleStartChars; i++) {
+    for (int i = 0; i < middleStartChars - 1; i++) {
       System.out.print("─");
     }
+    
+    System.out.print("┤");
     
     for (int i = 0; i < gameName.length(); i++) {
       System.out.print(gameName.charAt(i));
     }
     
-    for (int i = 0; i < middleEndChars; i++) {
+    System.out.print("├");
+    
+    for (int i = 0; i < middleEndChars - 1; i++) {
       System.out.print("─");
     }
     System.out.println(endChar);
